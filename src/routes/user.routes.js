@@ -10,6 +10,13 @@ const { authenticate, requireCompleteProfile } = require('../middleware/auth');
 const { validateUserProfile, validateLocation } = require('../middleware/validation');
 
 /**
+ * @route   GET /api/v1/users/profile
+ * @desc    Get current user profile
+ * @access  Private
+ */
+router.get('/profile', authenticate, userController.getProfile);
+
+/**
  * @route   PUT /api/v1/users/profile
  * @desc    Update user profile
  * @access  Private

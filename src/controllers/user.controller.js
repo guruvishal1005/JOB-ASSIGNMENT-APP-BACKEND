@@ -7,6 +7,24 @@ const User = require('../models/User');
 const { asyncHandler, ApiError } = require('../middleware/errorHandler');
 
 /**
+ * @desc    Get current user profile
+ * @route   GET /api/v1/users/profile
+ * @access  Private
+ */
+const getProfile = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.user._id).select('-aadhaarImage -fcmToken');
+
+  if (!user) {
+    throw new ApiError(404, 'User not found', 'USER_NOT_FOUND');
+  }
+
+  res.status(200).json({
+    success: true,
+    data: { user },
+  });
+});
+
+/**
  * @desc    Update user profile
  * @route   PUT /api/v1/users/profile
  * @access  Private
@@ -245,6 +263,7 @@ const searchUsers = asyncHandler(async (req, res) => {
 });
 
 module.exports = {
+  getProfile,
   updateProfile,
   completeProfile,
   updateLocation,
