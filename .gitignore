@@ -35,3 +35,4 @@ coverage/
 # Temporary files
 tmp/
 temp/
+job-app-29f3d-firebase-adminsdk-*.json
